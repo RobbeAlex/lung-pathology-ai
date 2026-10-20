@@ -9,7 +9,7 @@
 **Descripción del Conjunto:** Se utilizó esta combinación masiva enfocada en la clasificación de patologías torácicas a través de radiografías de tórax (X-Rays), garantizando mayor variabilidad clínica. 
 
 **Clases Extraídas y Mapeo:**
-A partir de la combinación de ambos datasets, se categorizaron las imágenes en cuatro clases finales (según consta en `mapeo_clases.json`):
+A partir de la combinación de ambos datasets, se categorizaron las imágenes en cuatro clases finales (según consta en `config/mapeo_clases.json`):
 1. `Bacterial Pneumonia` (Neumonía Bacteriana)
 2. `Healthy` (Sanos/Normal)
 3. `Viral Pneumonia` (Neumonía Viral)
@@ -54,7 +54,7 @@ El proceso de entrenamiento se ejecutó utilizando una técnica de ajuste por et
    - Se **descongelaron** específicamente las últimas 20 capas del modelo base.
    - **Optimizador:** Adam con una tasa de aprendizaje microscópica de `1e-5`. Esto permitió realizar ajustes sutiles y orientados al dominio de radiografías sin causar "olvido catastrófico" de los bordes y patrones base.
    - **Épocas:** 15.
-   - **Mejoras / Callbacks:** Se empleó `EarlyStopping` (paciencia de 4) combinado con un `ModelCheckpoint` configurado con `save_best_only=True` enfocado en `val_accuracy`, logrando capturar y guardar únicamente la versión matemáticamente superior del modelo (`modelo_chest_disease.keras`).
+   - **Mejoras / Callbacks:** Se empleó `EarlyStopping` (paciencia de 4) combinado con un `ModelCheckpoint` configurado con `save_best_only=True` enfocado en `val_accuracy`, logrando capturar y guardar únicamente la versión matemáticamente superior del modelo (`models/modelo_chest_disease.keras`).
 
 ### 2.4 Evaluación y Resultados Obtenidos
 - **Generador Estricto de Prueba:** El modelo fue auditado bajo un conjunto de datos `Testing Data` con el factor de barajado desactivado (`shuffle=False`), garantizando una asignación correcta de etiquetas. Para evitar sesgos de "Out-Of-Distribution", se realizó un barajado aleatorio cruzado entre entrenamiento y prueba garantizando la misma consistencia visual en todas las imágenes.

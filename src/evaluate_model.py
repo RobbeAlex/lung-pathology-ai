@@ -1,4 +1,6 @@
 import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+import os
 import json
 import numpy as np
 import matplotlib.pyplot as plt
@@ -17,7 +19,7 @@ print("Iniciando evaluación del modelo...")
 
 # 1. Cargar el diccionario de clases exportado previamente
 try:
-    with open('mapeo_clases.json', 'r') as f:
+    with open(os.path.join(BASE_DIR, 'config', 'mapeo_clases.json'), 'r') as f:
         diccionario_clases = json.load(f)
         # Invertir el diccionario para tener {0: 'Bacterial Pneumonia', ...}
         nombres_clases = [diccionario_clases[str(i)] for i in range(len(diccionario_clases))]
@@ -27,7 +29,7 @@ except FileNotFoundError:
 
 # 2. Cargar el modelo entrenado
 try:
-    model = tf.keras.models.load_model('modelo_chest_disease.keras')
+    model = tf.keras.models.load_model(os.path.join(BASE_DIR, 'models', 'modelo_chest_disease.keras'))
     print("Modelo cargado exitosamente.")
 except Exception as e:
     print(f"Error al cargar el modelo: {e}")
@@ -39,7 +41,7 @@ except Exception as e:
 test_datagen = ImageDataGenerator(preprocessing_function=preprocess_input)
 
 test_generator = test_datagen.flow_from_directory(
-    'Testing Data',
+    os.path.join(BASE_DIR, 'Testing Data'),
     target_size=(224, 224),
     batch_size=10,       # Lote pequeño para no saturar memoria
     class_mode='categorical',
@@ -87,6 +89,7 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 
 # Guardar la imagen de la matriz en alta calidad y mostrarla en pantalla
-plt.savefig('matriz_confusion.png', dpi=300)
+os.makedirs(os.path.join(BASE_DIR, 'results'), exist_ok=True)
+plt.savefig(os.path.join(BASE_DIR, 'results', 'matriz_confusion.png'), dpi=300)
 print("\n¡Evaluación terminada! La matriz se ha guardado como 'matriz_confusion.png'.")
 plt.show()

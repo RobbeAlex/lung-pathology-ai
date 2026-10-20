@@ -1,4 +1,6 @@
 import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+import os
 import json
 import numpy as np
 from sklearn.utils.class_weight import compute_class_weight
@@ -38,7 +40,7 @@ validation_datagen = ImageDataGenerator(
 # Carga de datos
 # Carga de datos de entrenamiento (80% del Training Data)
 train_generator = train_datagen.flow_from_directory(
-    'Training Data',
+    os.path.join(BASE_DIR, 'Training Data'),
     target_size=(224, 224),
     batch_size=32,
     class_mode='categorical',
@@ -49,7 +51,7 @@ train_generator = train_datagen.flow_from_directory(
 
 # Carga de datos de validación (20% del Training Data)
 validation_generator = validation_datagen.flow_from_directory(
-    'Training Data',
+    os.path.join(BASE_DIR, 'Training Data'),
     target_size=(224, 224),
     batch_size=32,
     class_mode='categorical',
@@ -61,7 +63,8 @@ validation_generator = validation_datagen.flow_from_directory(
 
 # Exportar el mapeo exacto de clases a un JSON para la aplicación web
 indices_clases = {v: k for k, v in train_generator.class_indices.items()}
-with open('mapeo_clases.json', 'w') as f:
+os.makedirs(os.path.join(BASE_DIR, 'config'), exist_ok=True)
+with open(os.path.join(BASE_DIR, 'config', 'mapeo_clases.json'), 'w') as f:
     json.dump(indices_clases, f)
 print(f"\nMapeo de clases exportado: {indices_clases}")
 
@@ -154,7 +157,8 @@ model.fit(
 )
 
 # Guardar en formato moderno
-nombre_modelo = 'modelo_chest_disease.keras'
+os.makedirs(os.path.join(BASE_DIR, 'models'), exist_ok=True)
+nombre_modelo = os.path.join(BASE_DIR, 'models', 'modelo_chest_disease.keras')
 model.save(nombre_modelo)
 
 print(f"\n¡Entrenamiento completado! Modelo guardado como '{nombre_modelo}'")

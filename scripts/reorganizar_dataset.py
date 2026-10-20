@@ -2,9 +2,10 @@ import os
 import shutil
 import random
 
-# Rutas base
-train_dir = r"G:\Mi unidad\Drive alumno.udg.mx\4to Semestre\Introduccion a la IA\AI in HealthCare - Chest Disease Detection With Teachable Machines\Training Data"
-test_dir = r"G:\Mi unidad\Drive alumno.udg.mx\4to Semestre\Introduccion a la IA\AI in HealthCare - Chest Disease Detection With Teachable Machines\Testing Data"
+# Rutas base dinámicas relativas al directorio del proyecto
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+train_dir = os.path.join(BASE_DIR, "Training Data")
+test_dir = os.path.join(BASE_DIR, "Testing Data")
 
 clases = ["Bacterial Pneumonia", "Healthy", "Viral Pneumonia", "covid-19"]
 n_test = 15

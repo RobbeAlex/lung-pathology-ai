@@ -1,13 +1,10 @@
 import os
 from PIL import Image
 
-# 1. Rutas exactas
-RUTA_ORIGEN = (
-    r"G:\Mi unidad\Drive alumno.udg.mx\4to Semestre\Introduccion a la IA"
-    r"\AI in HealthCare - Chest Disease Detection\AI in HealthCare - Chest Disease Detection"
-    r"\Training Data"
-)
-RUTA_DESTINO = "Training Data"
+# 1. Rutas dinámicas basadas en el directorio del script
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+RUTA_ORIGEN = os.path.join(BASE_DIR, "Training Data")
+RUTA_DESTINO = os.path.join(BASE_DIR, "Training Data")
 
 TAMANO_OBJETIVO = (224, 224)
  

@@ -67,7 +67,7 @@ pip install -r requirements.txt
 Para arrancar la interfaz web y empezar a probar el modelo con tus propias radiografías, ejecuta:
 
 ```bash
-streamlit run app.py
+streamlit run src/app.py
 ```
 Esto abrirá automáticamente una pestaña en tu navegador web donde podrás interactuar con el sistema de predicción.
 
@@ -75,9 +75,9 @@ Esto abrirá automáticamente una pestaña en tu navegador web donde podrás int
 
 Si deseas volver a entrenar el modelo o evaluar su rendimiento desde cero (asegúrate de tener las imágenes en las carpetas `Training Data/` y `Testing Data/` locales):
 
-1. **Preprocesar los datos:** `python procesar_dataset.py`
-2. **Entrenar:** `python train_model.py`
-3. **Evaluar:** `python evaluate_model.py` (esto actualizará el archivo de la matriz de confusión).
+1. **Preprocesar los datos:** `python scripts/procesar_dataset.py`
+2. **Entrenar:** `python src/train_model.py`
+3. **Evaluar:** `python src/evaluate_model.py` (esto actualizará el archivo de la matriz de confusión).
 
 ## 📈 Resultados
 

@@ -1,4 +1,6 @@
 import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+import os
 import json
 import streamlit as st  
 import tensorflow as tf
@@ -29,7 +31,7 @@ st.write("Carga una radiografía de tórax para que la red neuronal analice patr
 @st.cache_data
 def cargar_diccionario_clases():
     try:
-        with open('mapeo_clases.json', 'r') as f:
+        with open(os.path.join(BASE_DIR, 'config', 'mapeo_clases.json'), 'r') as f:
             return json.load(f)
     except FileNotFoundError:
         return None
@@ -40,7 +42,7 @@ CLASES_DICT = cargar_diccionario_clases()
 @st.cache_resource
 def cargar_modelo():
     try:
-        return tf.keras.models.load_model('modelo_chest_disease.keras')
+        return tf.keras.models.load_model(os.path.join(BASE_DIR, 'models', 'modelo_chest_disease.keras'))
     except Exception as e:
         return None
 
